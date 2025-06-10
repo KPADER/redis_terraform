@@ -14,7 +14,7 @@ module "redis_cache" {
   env                 = var.env
   namespace           = var.namespace
   subscription_id     = var.subscription_id
-  allowed_namespaces  = var.allowed_namespaces
+  allowed_access_to_namespaces  = var.allowed_access_to_namespaces
 }
 
 # Create private endpoint for Azure Cache Instance
