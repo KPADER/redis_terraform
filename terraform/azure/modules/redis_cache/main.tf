@@ -63,13 +63,13 @@ resource "azurerm_redis_cache_access_policy_assignment" "policy_assignment" {
 # Update existing User Redis with new access policies if update_redis flag is true
 
 data "azurerm_user_assigned_identity" "namespace_umi" {
-  for_each            = local.final_update_redis ? toset(var.allowed_namespaces) : []
+  for_each            = local.final_update_redis ? toset(var.allowed_access_to_namespaces) : []
   name                = "umi-dws-${var.env}-${each.key}"
   resource_group_name = "rg-data-ws-${var.env}-${each.key}"
 }
 
 resource "azurerm_redis_cache_access_policy" "allowed_namespace_policy" {
-  for_each            = local.final_update_redis ? toset(var.allowed_namespaces) : []
+  for_each            = local.final_update_redis ? toset(var.allowed_access_to_namespaces) : []
   name                = "${each.key}-policy"
   redis_cache_id      = local.redis_id
   permissions         = "+@read +get ~${each.key}-*"
@@ -77,7 +77,7 @@ resource "azurerm_redis_cache_access_policy" "allowed_namespace_policy" {
 
 
 resource "azurerm_redis_cache_access_policy_assignment" "allowed_namespace_assignment" {
-  for_each           = local.final_update_redis ? toset(var.allowed_namespaces) : []
+  for_each           = local.final_update_redis ? toset(var.allowed_access_to_namespaces) : []
   name               = "${each.key}-policy-assignment"
   redis_cache_id     = local.redis_id
   access_policy_name = azurerm_redis_cache_access_policy.allowed_namespace_policy[each.key].name
