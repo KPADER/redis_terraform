@@ -5,3 +5,4 @@ terraform {
       version = ">=4.30.0"
     }
   }
+}
