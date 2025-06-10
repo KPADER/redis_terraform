@@ -53,7 +53,7 @@ variable "update_redis" {
   default     = true
 }
 
-variable "allowed_namespaces" {
+variable "allowed_access_to_namespaces" {
   description = "List of allowed namespaces for the Redis access policy."
   type        = list(string)
   default     = []
