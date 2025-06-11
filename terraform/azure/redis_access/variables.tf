@@ -54,7 +54,8 @@ variable "update_redis" {
 }
 
 variable "allowed_namespaces" {
-  description = "List of allowed namespaces for the Redis access policy."
-  type        = list(string)
-  default     = []
+  description = "List of allowed namespace access rules"
+  type = list(object({
+    namespace = string
+  }))
 }
